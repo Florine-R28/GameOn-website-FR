@@ -53,14 +53,14 @@
       <div class="bground">
         <div class="content">
           <span class="close" id="close"></span>
-          <div class="modal-body" id="keepformSS">
+          <div class="modal-body">
             <form
               name="reserve"
               action="index.html"
               id="inscription"
               method="get"
-              onsubmit="return validateForm()"
-            >
+              onsubmit="return validateForm ()">
+
               <div
                 class="formData">
                 <label for="first">Prénom</label><br>
@@ -80,10 +80,10 @@
                   type="text"
                   id="last"
                   name="last"
+                  minlength="2"
                 /><br>
               </div>
-              <div
-                class="formData">
+              <div class="formData">
                 <label for="email">E-mail</label><br>
                 <input
                   class="text-control"
@@ -91,6 +91,7 @@
                   id="email"
                   name="email"
                 /><br>
+                <small class="small"></small>
               </div>
               <div
                 class="formData">
@@ -198,6 +199,9 @@
                 </label>
                 <br>
               </div>
+
+              <!--<p style="color: red"; id="error"></p>-->
+
               <input
                 id="btn-submit"
                 type="submit"
@@ -205,6 +209,7 @@
                 value="C'est parti"
                 onsubmit="return confirm();"
               />
+
             </form>
           </div>
         </div>

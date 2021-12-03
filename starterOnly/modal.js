@@ -12,7 +12,6 @@ const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 const modalclose = document.getElementById("close");
-const submitbtn = document.getElementById ("btnsubmit")
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -29,10 +28,9 @@ function closeModal() {
 
 modalclose.addEventListener("click", closeModal);
 
-document.getElementById("inscription").addEventListener("click", function (fillform) {
+/*document.getElementById("inscription").addEventListener("click", function (fillform) {
   fillform.preventDefault();
-}
-)
+})*/
 
 //validation submit
 /*document.getElementById("keepform").value = getSavedValue ("keepform");
@@ -53,61 +51,69 @@ const emailRegex = ("/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+?:\.[a-zA-Z
 const birthValid = document.getElementById("birthdate");
 const quantityCity = document.getElementById("quantity");
 const checkBox = document.getElementById("checkbox1");
+const submitbtn = document.getElementById ("btnsubmit");
+const error = document.getElementById("error");
 
-function show_alert () {
-  alert ("xxxxx");
-}
-
-function validateForm () {
-  if (firstName.value == ""){
-    alert ("Veuillez entrer 2 caractères ou plus pour le champ du nom");
-    return false;
+/*function validateForm () {
+  if (!firstName.value && firstName.lenght<2){
+    error ="Veuillez entrer 2 caractères ou plus pour le champ du prénom";
   }
 
-  if (lastName.value == ""){ 
-    alert ("Veuillez entrer 2 caractères ou plus pour le champ du nom");
-    return false;
+  if (!lastName.value && lastName.lenght<2){ 
+    error ="Veuillez entrer 2 caractères ou plus pour le champ du nom";
   }
 
   if (!emailValid.value.matchemailRegex) {
-    alert ("Entrez une adresse valide. Exemple : contact@nom.com");
-    return false;
+    error ="Veuillez entrer une adresse valide. Exemple : contact@nom.com";
   } 
-  
-  let testEmail= emailRegex.test (emailValid.value);
 
-  console.log(testEmail);
-
-  if (birthdate.value == ""){
-    alert ("Entrez votre date de naissance");
-    return false;
+  if (!birthValid.value){
+    error ="Vous devez entrer votre date de naissance";
   }
 
   if (!quantityCity.checked) {
-    alert ("Vous devez renseigner ce champ.");
-    return false;
+    error ="Vous devez choisir une option";
   }
 
   if (!checkBox.checked) {
-    alert ("Vous devez renseigner ce champ.");
+    error ="Vous devez choisir une option";
+  }
+
+  if (error) {
+    document.getElementById("error").innerHTML = "error" ;
     return false;
-  }  
+  }
 
   else {
-    return confirm ("Etes-vous sûr de valider votre choix ?");
+    return confirm ("Vous devez vérifier que vous acceptez les termes et conditions ");
   }
 }
 
-let form = document.getElementById ("loginForm");
+// message de confirmation 
+document.getElementById("inscription").addEventListener("submit", function () {
+  alert('Merci ! Votre réservation a été reçue');
+})*/
 
-console.log(form.email);
+//écouter la modification de l'email
+emailValid.addEventListener('change', function() {
+  emailValid(this);
+});
 
-/*if (!emailValid.value == "emailRegex") {
-  alert ("Entrez une adresse valide. Exemple : contact@nom.com");
-  return false;
-} 
 
-let testEmail= emailRegex.test (emailValid.value);
+form = document.getElementById("inscription");
+form.email.addEventListener('change', function(){
+  validEmail(this);
+});
 
-console.log(testEmail);*/
+const inputEmail = document.querySelector(".email");
+let small = email.nextElementSibling;
 
+if ('emailValid = emailRegex'){
+  small.innerHTML = 'Adresse valide';
+} else {
+  small.innerHTML = "Adresse non valide";
+}
+
+let testEmail = emailRegex.test(inputEmail.value);
+
+console.log(testEmail);

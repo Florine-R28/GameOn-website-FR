@@ -202,6 +202,11 @@ label {
   display: inline-block;
   margin-bottom: 11px;
 }
+
+small {
+  display: none;
+}
+
 input {
   padding: 8px;
   border: 0.8px solid #ccc;

@@ -59,6 +59,7 @@
               action="index.html"
               id="inscription"
               method="get"
+              novalidate
               onsubmit="return validateForm()">
 
               <div
@@ -72,7 +73,7 @@
                   minlength="2"
                 /><br>
                 <small id="errorLabelFirst" class ="small">
-                  Veuillez entrer 2 caractères ou plus pour le champ du prénom
+                  Veuillez entrer 2 caractères ou plus pour le champ du prénom.
                 </small>
               </div>
               <div
@@ -86,7 +87,7 @@
                   minlength="2"
                 /><br>
                 <small id="errorLabelLast" class ="small">
-                  Veuillez entrer 2 caractères ou plus pour le champ du nom
+                  Veuillez entrer 2 caractères ou plus pour le champ du nom.
                 </small>
               </div>
               <div class="formData">
@@ -97,7 +98,7 @@
                   id="email"
                   name="email"
                 /><br>
-                <small class="small">
+                <small id="errorLabelMail" class="small">
                   Veuillez entrer une adresse valide. Exemple : contact@nom.com
                 </small>
               </div>
@@ -111,7 +112,7 @@
                   name="birthdate"
                 /><br>
                 <small id="errorLabelBirth" class ="small">
-                  Vous devez entrer votre date de naissance
+                  Vous devez entrer votre date de naissance.
                 </small>
               </div>
               <div

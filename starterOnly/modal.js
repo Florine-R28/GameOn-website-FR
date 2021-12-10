@@ -28,10 +28,9 @@ function closeModal() {
 
 modalclose.addEventListener("click", closeModal);
 
-//keep the form open if it is not completed
-document.getElementById("inscription").addEventListener("click", function (fillform) {
-  fillform.preventDefault();
-})
+// document.getElementById("inscription").addEventListener("click", function (fillform) {
+//   fillform.preventDefault();
+// });
 
 //validation submit
 /*document.getElementById("keepform").value = getSavedValue ("keepform");
@@ -46,94 +45,81 @@ function getSavedValue(e){
 //validation du formulaire
 const firstName = document.getElementById("first");
 const lastName = document.getElementById("last");
+const regName = /^[a-zA-Z]+ [a-zA-Z]+$/;
 const emailValid = document.getElementById("email");
-const emailRegex = ("/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+?:\.[a-zA-Z0-9-]+*$/", 'g');
+const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const birthValid = document.getElementById("birthdate");
 const quantityCity = document.getElementById("quantity");
 const checkBox = document.getElementById("checkbox1");
 const submitbtn = document.getElementById ("btnsubmit");
 const error = document.getElementById("error");
 
+// All error labels
+const errorLabelFirst = document.getElementById('errorLabelFirst');
+const errorLabelLast = document.getElementById('errorLabelLast');
+const errorLabelMail = document.getElementById('errorLabelMail');
+const errorLabelBirth = document.getElementById('errorLabelBirth');
+
 function validateForm() {
-  let hasError = false;
+  event.preventDefault();
 
-  if (text.firstName.checked = true && text.firstName.lenght<2){
-    //error ="Veuillez entrer 2 caractères ou plus pour le champ du prénom";
-    const inputFisrt = document.getElementById('errorLabelFirst');
-    inputFisrt.style.display = 'block';
-    console.log ('test')
-    hasError = true;
+  console.log(firstName.value.length)
+  if (!firstName.value || firstName.value.length<2){
+    errorLabelFirst.style.display = 'block';
+  } else {
+    errorLabelFirst.style.display = 'none';
   }
 
-  if (!lastName.value && lastName.lenght<2){ 
-    //error ="Veuillez entrer 2 caractères ou plus pour le champ du nom";
-    const inputLast = document.getElementById('errorLabelLast');
-    inputLast.style.display = 'block';
-    hasError = true;
+  if (!lastName.value || lastName.value.length<2){ 
+    errorLabelFirst.style.display = 'block';
+  } else {
+    errorLabelFirst.style.display = 'none';
   }
 
-  if (!emailRegex.test(emailValid.value)){
-    const inputEmail = document.getElementById('errorLabelMaiL');
-    //error ="Veuillez entrer une adresse valide. Exemple : contact@nom.com";
-    inputEmail.style.display = 'block';
-    hasError = true; 
-  } 
+  if (!emailRegex.test(emailValid.value)) {
+    errorLabelMail.style.display = 'block';
+  } else {
+    errorLabelMail.style.display = 'none';
+  }
 
   if (!birthValid.value){
-    //error ="Vous devez entrer votre date de naissance";
-    const inputBirthdate = document.getElementById('errorLabelBirth');
-    inputBirthdate.style.display = 'block';
-    hasError = true;
+    errorLabelBirth.style.display = 'block';
+  } else {
+    errorLabelBirth.style.display = 'none';
   }
 
   if (!quantityCity.checked) {
-    //error ="Vous devez choisir une option";
-    const inputQuantity = document.getElementById('errorLabelQuanity');
-    inputQuantity.style.display = 'block';
-    hasError = true;
+    // error ="Vous devez choisir une option";
   }
 
   if (!checkBox.checked) {
-    //error ="Vous devez vérifier que vous acceptez les termes et conditions";
-    const inputCheckbox = document.getElementById('errorLabelCheckbox');
-    inputCheckbox.style.display = 'block';
-    hasError = true;
+    // error ="Vous devez choisir une option";
   }
 
-  if (error) {
-    small.innerHTML = "error" ;
-    hasError = true; 
-  }
-
-  if (hasError) {
-    return false;
-  } else {
-    alert('Merci ! Votre réservation a été reçue');
-  }
-return false;
+  // alert('Merci ! Votre réservation a été reçue');
+  // return confirm ("Vous devez vérifier que vous acceptez les termes et conditions ");
 }
 
+//écouter la modification de l'email
+// emailValid.addEventListener('change', function() {
+//   emailValid(this);
+// });
 
-/*écouter la modification de l'email
-emailValid.addEventListener('change', function() {
-  emailValid(this);
-});
 
+// form = document.getElementById("inscription");
+// form.email.addEventListener('change', function(){
+//   validEmail(this);
+// });
 
-form = document.getElementById("inscription");
-form.email.addEventListener('change', function(){
-  validEmail(this);
-});
+// const inputEmail = document.querySelector(".email");
+// let small = email.nextElementSibling;
 
-const inputEmail = document.querySelector(".email");
-let small = email.nextElementSibling;
+// if ('emailValid = emailRegex'){
+//   small.innerHTML = 'Adresse valide';
+// } else {
+//   small.innerHTML = "Adresse non valide";
+// }
 
-if ('emailValid = emailRegex'){
-  small.innerHTML = 'Adresse valide';
-} else {
-  small.innerHTML = "Adresse non valide";
-}
+// let testEmail = emailRegex.test(inputEmail.value);
 
-let testEmail = emailRegex.test(inputEmail.value);
-
-console.log(testEmail);*/
+// console.log(testEmail);

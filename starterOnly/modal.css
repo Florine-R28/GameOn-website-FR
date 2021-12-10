@@ -97,8 +97,6 @@ img {
   }
 }
 
-
-
  @media screen and (max-width: 540px) {
   .topnav a {display: none;}
   .topnav a.icon {
@@ -118,8 +116,6 @@ main {
   margin: 1px 20px 15px;
   border-radius: 2rem;
   text-align: justify;
-
-
 }
 
 .modal-btn {
@@ -205,6 +201,7 @@ label {
 
 small {
   display: none;
+  font-size:0.6em;
 }
 
 input {

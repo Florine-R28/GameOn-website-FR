@@ -28,9 +28,9 @@ function closeModal() {
 
 modalclose.addEventListener("click", closeModal);
 
-// document.getElementById("inscription").addEventListener("click", function (fillform) {
-//   fillform.preventDefault();
-// });
+//document.getElementById("inscription").addEventListener("click", function (fillform) {
+//  fillform.preventDefault();
+//});
 
 //validation submit
 /*document.getElementById("keepform").value = getSavedValue ("keepform");
@@ -45,12 +45,11 @@ function getSavedValue(e){
 //validation du formulaire
 const firstName = document.getElementById("first");
 const lastName = document.getElementById("last");
-const regName = /^[a-zA-Z]+ [a-zA-Z]+$/;
 const emailValid = document.getElementById("email");
 const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const birthValid = document.getElementById("birthdate");
 const quantityCity = document.getElementById("quantity");
-const checkBox = document.getElementById("checkbox1");
+const checkBox = document.getElementById("checkbox");
 const submitbtn = document.getElementById ("btnsubmit");
 const error = document.getElementById("error");
 
@@ -59,21 +58,23 @@ const errorLabelFirst = document.getElementById('errorLabelFirst');
 const errorLabelLast = document.getElementById('errorLabelLast');
 const errorLabelMail = document.getElementById('errorLabelMail');
 const errorLabelBirth = document.getElementById('errorLabelBirth');
+const errorLabelQuantity = document.getElementById('errorLabelQuantity');
+const errorLabelCheckbox = document.getElementById('errorLabelCheckbox');
 
 function validateForm() {
   event.preventDefault();
 
-  console.log(firstName.value.length)
   if (!firstName.value || firstName.value.length<2){
     errorLabelFirst.style.display = 'block';
   } else {
     errorLabelFirst.style.display = 'none';
   }
 
+
   if (!lastName.value || lastName.value.length<2){ 
-    errorLabelFirst.style.display = 'block';
+    errorLabelLast.style.display = 'block';
   } else {
-    errorLabelFirst.style.display = 'none';
+    errorLabelLast.style.display = 'none';
   }
 
   if (!emailRegex.test(emailValid.value)) {
@@ -81,45 +82,54 @@ function validateForm() {
   } else {
     errorLabelMail.style.display = 'none';
   }
-
+  
   if (!birthValid.value){
     errorLabelBirth.style.display = 'block';
   } else {
     errorLabelBirth.style.display = 'none';
   }
+  
+  if (quantityCity.value<=0) {
+    errorLabelQuantity.style.display = 'block';
+  } else {
+    errorLabelQuantity.style.display = 'none';
+  } 
 
-  if (!quantityCity.checked) {
-    // error ="Vous devez choisir une option";
-  }
+  //which city 
+  var checkboxes = document.getElementsByName('location');  
+  var selected = [];
+  for (var i=0; i<checkboxes.length; i++) {
+    if (checkboxes[i].checked) {
+        selected.push(checkboxes[i].value);
+        errorLabelCheckbox.style.display = 'block';
+      } else {
+      errorLabelCheckbox.style.display = 'none';
+      }
 
-  if (!checkBox.checked) {
-    // error ="Vous devez choisir une option";
-  }
+  //if (checkBox.checked || checkBox.value<1) {
+  
+
+  //if (checkBox.value>0) {
+   // errorLabelCheckbox1.style.display = 'block';
+  //} else {
+  //  errorLabelCheckbox1.style.display = 'none';
+  //}
+
+  //if (!checkBox.value) {
+  //  errorLabelCheckbox2.style.display = 'block';
+  ///} else {
+  //  errorLabelCheckbox2.style.display = 'none';
+  //}
+
+  //if (confirm()){
+    //alert('Merci ! Votre réservation a été reçue') ;
+  //}else{
+   // return false ;
+  //}
 
   // alert('Merci ! Votre réservation a été reçue');
   // return confirm ("Vous devez vérifier que vous acceptez les termes et conditions ");
 }
 
-//écouter la modification de l'email
-// emailValid.addEventListener('change', function() {
-//   emailValid(this);
-// });
+//document.getElementById("btn-submit").addEventListener('submitbtn', functSubmit(event))
 
-
-// form = document.getElementById("inscription");
-// form.email.addEventListener('change', function(){
-//   validEmail(this);
-// });
-
-// const inputEmail = document.querySelector(".email");
-// let small = email.nextElementSibling;
-
-// if ('emailValid = emailRegex'){
-//   small.innerHTML = 'Adresse valide';
-// } else {
-//   small.innerHTML = "Adresse non valide";
-// }
-
-// let testEmail = emailRegex.test(inputEmail.value);
-
-// console.log(testEmail);

@@ -12,6 +12,7 @@ const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 const modalclose = document.getElementById("close");
+const closeForm = document.getElementById("closeForm");
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -28,48 +29,37 @@ function closeModal() {
 
 modalclose.addEventListener("click", closeModal);
 
-//document.getElementById("inscription").addEventListener("click", function (fillform) {
-//  fillform.preventDefault();
-//});
-
-//validation submit
-/*document.getElementById("keepform").value = getSavedValue ("keepform");
-
-function getSavedValue(e){
-  var id = e.id;  
-  var val = e.value;  
-  localStorage.setItem(id, val);
-}*/
-
-
-//validation du formulaire
+//Form fields validation
 const firstName = document.getElementById("first");
 const lastName = document.getElementById("last");
 const emailValid = document.getElementById("email");
 const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const birthValid = document.getElementById("birthdate");
 const quantityCity = document.getElementById("quantity");
-const checkBox = document.getElementById("checkbox");
-const submitbtn = document.getElementById ("btnsubmit");
-const error = document.getElementById("error");
+const checkboxConditions = document.getElementById("checkboxConditions");
+const form = document.getElementById('form');
+const submit = document.getElementById ("submit");
 
-// All error labels
+//Error labels
 const errorLabelFirst = document.getElementById('errorLabelFirst');
 const errorLabelLast = document.getElementById('errorLabelLast');
 const errorLabelMail = document.getElementById('errorLabelMail');
 const errorLabelBirth = document.getElementById('errorLabelBirth');
 const errorLabelQuantity = document.getElementById('errorLabelQuantity');
 const errorLabelCheckbox = document.getElementById('errorLabelCheckbox');
+const errorLabelradioButtons = document.getElementById('errorLabelradioButtons');
+const errorSubmit = document.getElementById('errorSubmit');
 
+//Check all form fields
 function validateForm() {
   event.preventDefault();
 
+  //names check (firstName x lastName)
   if (!firstName.value || firstName.value.length<2){
     errorLabelFirst.style.display = 'block';
   } else {
     errorLabelFirst.style.display = 'none';
   }
-
 
   if (!lastName.value || lastName.value.length<2){ 
     errorLabelLast.style.display = 'block';
@@ -77,59 +67,53 @@ function validateForm() {
     errorLabelLast.style.display = 'none';
   }
 
+  //email check
   if (!emailRegex.test(emailValid.value)) {
     errorLabelMail.style.display = 'block';
   } else {
     errorLabelMail.style.display = 'none';
   }
-  
-  if (!birthValid.value){
+
+  //birthdate check
+  if (!birthValid.value || new Date(birthValid.value).getFullYear()<1920){
     errorLabelBirth.style.display = 'block';
   } else {
     errorLabelBirth.style.display = 'none';
   }
   
-  if (quantityCity.value<=0) {
+  //number of tournaments check 
+  if (quantityCity.value<0 || quantityCity.value>99) {
     errorLabelQuantity.style.display = 'block';
   } else {
     errorLabelQuantity.style.display = 'none';
   } 
 
-  //which city 
-  var checkboxes = document.getElementsByName('location');  
-  var selected = [];
-  for (var i=0; i<checkboxes.length; i++) {
-    if (checkboxes[i].checked) {
-        selected.push(checkboxes[i].value);
-        errorLabelCheckbox.style.display = 'block';
-      } else {
-      errorLabelCheckbox.style.display = 'none';
-      }
+  //locations check
+  const radioButtons = document.getElementsByName('location');  
+  let isvalid = false ;
+  for (let i=0; i<radioButtons.length; i++) {
+    if (radioButtons[i].checked) {
+      isvalid = true ;
+    }
+  }
 
-  //if (checkBox.checked || checkBox.value<1) {
-  
+  if (!isvalid /*=== false*/) {
+   errorLabelradioButtons.style.display = 'block';
+  } else {
+    errorLabelradioButtons.style.display = 'none';
+  }
 
-  //if (checkBox.value>0) {
-   // errorLabelCheckbox1.style.display = 'block';
-  //} else {
-  //  errorLabelCheckbox1.style.display = 'none';
-  //}
-
-  //if (!checkBox.value) {
-  //  errorLabelCheckbox2.style.display = 'block';
-  ///} else {
-  //  errorLabelCheckbox2.style.display = 'none';
-  //}
-
-  //if (confirm()){
-    //alert('Merci ! Votre réservation a été reçue') ;
-  //}else{
-   // return false ;
-  //}
-
-  // alert('Merci ! Votre réservation a été reçue');
-  // return confirm ("Vous devez vérifier que vous acceptez les termes et conditions ");
+  //checkboxConditions check
+  if (!checkboxConditions.checked) {
+   errorLabelCheckbox.style.display = 'block';
+  } else {
+   errorLabelCheckbox.style.display = 'none';
+  }
 }
 
-//document.getElementById("btn-submit").addEventListener('submitbtn', functSubmit(event))
+//send form
+document.getElementById("inscription").addEventListener("submit", function () {
+  alert('Merci ! Votre réservation a été reçue');
+  if(validateForm() == true) closeForm.close();
+});
 

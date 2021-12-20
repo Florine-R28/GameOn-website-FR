@@ -109,7 +109,7 @@
                   class="text-control"
                   type="date"
                   id="birthdate"
-                  name="birthdate"
+                  name="birthdate" min="1920-01-01" 
                 /><br>
                 <small id="errorLabelBirth" class ="small">
                   Vous devez entrer votre date de naissance.
@@ -126,7 +126,7 @@
                 class="formData">
                 <input
                   class="checkbox-input"
-                  type="checkbox"
+                  type="radio"
                   id="location1"
                   name="location"
                   value="New York"
@@ -137,7 +137,7 @@
                 >
                 <input
                   class="checkbox-input"
-                  type="checkbox"
+                  type="radio"
                   id="location2"
                   name="location"
                   value="San Francisco"
@@ -148,7 +148,7 @@
                 >
                 <input
                   class="checkbox-input"
-                  type="checkbox"
+                  type="radio"
                   id="location3"
                   name="location"
                   value="Seattle"
@@ -159,7 +159,7 @@
                 >
                 <input
                   class="checkbox-input"
-                  type="checkbox"
+                  type="radio"
                   id="location4"
                   name="location"
                   value="Chicago"
@@ -170,7 +170,7 @@
                 >
                 <input
                   class="checkbox-input"
-                  type="checkbox"
+                  type="radio"
                   id="location5"
                   name="location"
                   value="Boston"
@@ -181,7 +181,7 @@
                 >
                 <input
                   class="checkbox-input"
-                  type="checkbox"
+                  type="radio"
                   id="location6"
                   name="location"
                   value="Portland"
@@ -190,7 +190,7 @@
                   <span class="checkbox-icon"></span>
                   Portland</label
                 ></br>
-                <small id="errorLabelCheckbox" class ="small">
+                <small id="errorLabelradioButtons" class ="small">
                   Vous devez choisir une option
                 </small>
               </div>
@@ -203,28 +203,28 @@
                   id="checkbox"
                   checked
                 />
-                <input class="checkbox-input" type="checkbox" id="checkbox1" />
-                <label class="checkbox2-label" for="checkbox1">
+                <input class="checkbox-input" type="checkbox" id="checkboxConditions" name="checkboxConditions" />
+                <label class="checkbox2-label" for="checkboxConditions">
                   <span class="checkbox-icon"></span>
                   J'ai lu et accepté les conditions d'utilisation.
                 </label>
+                <small id="errorLabelCheckbox" class ="small">
+                  Vous devez vérifier que vous acceptez les termes et conditions
+                </small>
                 <br>
-                <input class="checkbox-input" type="checkbox" id="checkbox2" />
-                <label class="checkbox2-label" for="checkbox2">
+                <input class="checkbox-input" type="checkbox" id="checkboxEvents" name="checkboxEvents"/>
+                <label class="checkbox2-label" for="checkboxEvents">
                   <span class="checkbox-icon"></span>
                   Je souhaite être prévenu des prochains évènements.
                 </label>
                 <br>
-                <small id="errorLabelCheckbox" class ="small">
-                  Vous devez vérifier que vous acceptez les termes et conditions
-                </small>
+               
               </div>
               <input
-                id="submit"
+                id="closeForm"
                 type="submit"
                 class="button"
                 value="C'est parti"
-                onsubmit="return confirm();"
               />
 
             </form>

@@ -32,10 +32,12 @@ modalclose.addEventListener("click", closeModal);
 //Form fields validation
 const firstName = document.getElementById("first");
 const lastName = document.getElementById("last");
+const nameRegex = /^[a-zA-Z\-]+$/; 
 const emailValid = document.getElementById("email");
 const emailRegex =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const birthValid = document.getElementById("birthdate");
+const birthRegex = /(((0|1)[0-9]|2[0-9]|3[0-1])\/(0[1-9]|1[0-2])\/((19|20)\d\d))$/;
 const quantityCity = document.getElementById("quantity");
 const checkboxConditions = document.getElementById("checkboxConditions");
 const form = document.getElementById("form");
@@ -59,14 +61,14 @@ function validateForm() {
   let isValidForm = true;
 
   //names check (firstName x lastName)
-  if (!firstName.value || firstName.value.length < 2) {
+  if (!firstName.value || firstName.value.length < 2 || (!nameRegex.test(firstName.value))) {
     errorLabelFirst.style.display = "block";
     isValidForm = false;
   } else {
     errorLabelFirst.style.display = "none";
   }
 
-  if (!lastName.value || lastName.value.length < 2) {
+  if (!lastName.value || lastName.value.length < 2 || (!nameRegex.test(lastName.value))) {
     errorLabelLast.style.display = "block";
     isValidForm = false;
   } else {
@@ -131,3 +133,9 @@ document.getElementById("inscription").addEventListener("submit", function () {
     alert("Merci ! Votre réservation a été reçue");
   }
 });
+
+//empty form
+function resetForm () {
+  const emptyForm = document.getElementById("inscription");
+  emptyForm.reset();
+}

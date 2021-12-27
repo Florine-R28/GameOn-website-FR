@@ -7,6 +7,13 @@ function editNav() {
   }
 }
 
+function isValidDate(d)  {
+  let todayDate = new Date(); //today date
+  let date = new Date().setFullYear(todayDate.getFullYear()-18); //just for adults
+  let oldDate = new Date().setFullYear(todayDate.getFullYear()-100); //100 in the past
+  return d instanceof Date && !isNaN(d) && d<=date && d>oldDate ; 
+}
+ 
 // DOM Elements
 const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
@@ -14,22 +21,23 @@ const formData = document.querySelectorAll(".formData");
 const modalclose = document.getElementById("close");
 const closeForm = document.getElementById("closeForm");
 
-// launch modal event
+// Launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
-// launch modal form
+// Launch modal form
 function launchModal() {
   modalbg.style.display = "block";
 }
 
-//close form via cross
+// Close form via cross
 function closeModal() {
   modalbg.style.display = "none";
 }
 
+// Close modal form
 modalclose.addEventListener("click", closeModal);
 
-//Form fields validation
+// Form fields validation
 const firstName = document.getElementById("first");
 const lastName = document.getElementById("last");
 const nameRegex = /^[a-zA-Z\-]+$/; 
@@ -37,30 +45,27 @@ const emailValid = document.getElementById("email");
 const emailRegex =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const birthValid = document.getElementById("birthdate");
-const birthRegex = /(((0|1)[0-9]|2[0-9]|3[0-1])\/(0[1-9]|1[0-2])\/((19|20)\d\d))$/;
 const quantityCity = document.getElementById("quantity");
 const checkboxConditions = document.getElementById("checkboxConditions");
 const form = document.getElementById("form");
 const submit = document.getElementById("submit");
 
-//Error labels
+// Error labels
 const errorLabelFirst = document.getElementById("errorLabelFirst");
 const errorLabelLast = document.getElementById("errorLabelLast");
 const errorLabelMail = document.getElementById("errorLabelMail");
 const errorLabelBirth = document.getElementById("errorLabelBirth");
 const errorLabelQuantity = document.getElementById("errorLabelQuantity");
 const errorLabelCheckbox = document.getElementById("errorLabelCheckbox");
-const errorLabelradioButtons = document.getElementById(
-  "errorLabelradioButtons"
-);
+const errorLabelradioButtons = document.getElementById("errorLabelradioButtons");
 const errorSubmit = document.getElementById("errorSubmit");
 
-//Check all form fields
+// Check all form fields
 function validateForm() {
   event.preventDefault();
   let isValidForm = true;
 
-  //names check (firstName x lastName)
+  //Names check (firstName x lastName)
   if (!firstName.value || firstName.value.length < 2 || (!nameRegex.test(firstName.value))) {
     errorLabelFirst.style.display = "block";
     isValidForm = false;
@@ -75,7 +80,7 @@ function validateForm() {
     errorLabelLast.style.display = "none";
   }
 
-  //email check
+  // Email check
   if (!emailRegex.test(emailValid.value)) {
     errorLabelMail.style.display = "block";
     isValidForm = false;
@@ -83,15 +88,15 @@ function validateForm() {
     errorLabelMail.style.display = "none";
   }
 
-  //birthdate check
-  if (!birthValid.value || new Date(birthValid.value).getFullYear() < 1920) {
+  // Birthdate check
+  if (!birthValid.value || !isValidDate(new Date(birthValid.value))) {
     errorLabelBirth.style.display = "block";
     isValidForm = false;
   } else {
     errorLabelBirth.style.display = "none";
   }
 
-  //number of tournaments check
+  // Number of tournaments check
   if (quantityCity.value < 0 || quantityCity.value > 99) {
     errorLabelQuantity.style.display = "block";
     isValidForm = false;
@@ -99,7 +104,7 @@ function validateForm() {
     errorLabelQuantity.style.display = "none";
   }
 
-  //locations check
+  // Locations check
   const radioButtons = document.getElementsByName("location");
   let areValidRadioButtons = false;
   for (let i = 0; i < radioButtons.length; i++) {
@@ -115,7 +120,7 @@ function validateForm() {
     errorLabelradioButtons.style.display = "none";
   }
 
-  //checkboxConditions check
+  // CheckboxConditions check
   if (!checkboxConditions.checked) {
     errorLabelCheckbox.style.display = "block";
     isValidForm = false;
@@ -126,16 +131,11 @@ function validateForm() {
   return isValidForm;
 }
 
-//send form
+// Send form x empty it
 document.getElementById("inscription").addEventListener("submit", function () {
   if (validateForm() == true) {
     closeModal();
     alert("Merci ! Votre réservation a été reçue");
+    document.getElementById("inscription").reset();
   }
 });
-
-//empty form
-function resetForm () {
-  const emptyForm = document.getElementById("inscription");
-  emptyForm.reset();
-}

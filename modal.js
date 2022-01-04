@@ -60,6 +60,13 @@ const errorLabelCheckbox = document.getElementById("errorLabelCheckbox");
 const errorLabelradioButtons = document.getElementById("errorLabelradioButtons");
 const errorSubmit = document.getElementById("errorSubmit");
 
+// Input for change color border
+const inputFirstName = document.getElementById("first");
+const inputLastName = document.getElementById("last");
+const inputEmailValid = document.getElementById("email");
+const inputBirthValid = document.getElementById("birthdate");
+const inputQuantityCity = document.getElementById("quantity");
+
 // Check all form fields
 function validateForm() {
   event.preventDefault();
@@ -68,40 +75,50 @@ function validateForm() {
   //Names check (firstName x lastName)
   if (!firstName.value || firstName.value.length < 2 || (!nameRegex.test(firstName.value))) {
     errorLabelFirst.style.display = "block";
+    inputFirstName.style.borderColor = "red"; 
     isValidForm = false;
   } else {
     errorLabelFirst.style.display = "none";
+    inputFirstName.style.borderColor = "#ccc"; 
   }
 
   if (!lastName.value || lastName.value.length < 2 || (!nameRegex.test(lastName.value))) {
     errorLabelLast.style.display = "block";
+    inputLastName.style.borderColor = "red"; 
     isValidForm = false;
   } else {
     errorLabelLast.style.display = "none";
+    inputLastName.style.borderColor = "#ccc"; 
   }
 
   // Email check
   if (!emailRegex.test(emailValid.value)) {
     errorLabelMail.style.display = "block";
+    inputEmailValid.style.borderColor = "red"; 
     isValidForm = false;
   } else {
     errorLabelMail.style.display = "none";
+    inputEmailValid.style.borderColor = "#ccc"; 
   }
 
   // Birthdate check
   if (!birthValid.value || !isValidDate(new Date(birthValid.value))) {
     errorLabelBirth.style.display = "block";
+    inputBirthValid.style.borderColor = "red"; 
     isValidForm = false;
   } else {
     errorLabelBirth.style.display = "none";
+    inputBirthValid.style.borderColor = "#ccc"; 
   }
 
   // Number of tournaments check
-  if (quantityCity.value < 0 || quantityCity.value > 99) {
+  if (!quantityCity.value || quantityCity.value < 0 || quantityCity.value > 99) {
     errorLabelQuantity.style.display = "block";
+    inputQuantityCity.style.borderColor = "red"; 
     isValidForm = false;
   } else {
     errorLabelQuantity.style.display = "none";
+    inputQuantityCity.style.borderColor = "#ccc"; 
   }
 
   // Locations check
@@ -127,7 +144,7 @@ function validateForm() {
   } else {
     errorLabelCheckbox.style.display = "none";
   }
-
+  
   return isValidForm;
 }
 

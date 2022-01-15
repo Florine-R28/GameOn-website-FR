@@ -150,6 +150,9 @@ main {
   border-radius: 15px;
   cursor: pointer;
   font-size: 16px;
+  margin-left: 120px;
+  width: 180px;
+  border: red;
 }
 
 .button:hover {
@@ -158,6 +161,17 @@ main {
 
 .smFont {
   font-size: 16px;
+}
+
+.message {
+  display: flex;
+  margin: 255px 50px 255px 50px;
+  justify-content: center;
+}
+
+#closeConfirm { 
+  display: flex;
+  padding-left: 60px;
 }
 
 .bground {
@@ -184,6 +198,7 @@ main {
   position: relative;
   color: #fff;
   padding-top: 10px;
+  min-height: 90vh;
 }
 
 .modal-body {
@@ -203,6 +218,10 @@ small {
   display: none;
   font-size:0.6em;
   color: red;
+}
+
+#confirmWindow {
+  display: none;
 }
 
 input {

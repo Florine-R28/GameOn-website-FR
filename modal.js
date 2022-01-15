@@ -40,7 +40,7 @@ modalclose.addEventListener("click", closeModal);
 // Form fields validation
 const firstName = document.getElementById("first");
 const lastName = document.getElementById("last");
-const nameRegex = /^[a-zA-Z\-]+$/; 
+const nameRegex =/^[a-zA-Z '.-]*$/; 
 const emailValid = document.getElementById("email");
 const emailRegex =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -149,10 +149,19 @@ function validateForm() {
 }
 
 // Send form x empty it
+function sendForm() { 
+  const confW = document.getElementById("confirmWindow");
+  confW.style.display = "block";
+  const closeConfirmButton = document.getElementById('closeConfirm');
+  closeConfirmButton.addEventListener("click", function () {
+  confW.style.display = "none";
+  });
+}
+
 document.getElementById("inscription").addEventListener("submit", function () {
   if (validateForm() == true) {
-    closeModal();
-    alert("Merci ! Votre réservation a été reçue");
+    sendForm(); 
     document.getElementById("inscription").reset();
+    closeModal();
   }
 });

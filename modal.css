@@ -167,6 +167,7 @@ main {
   display: flex;
   margin: 255px 50px 255px 50px;
   justify-content: center;
+  text-align: center;
 }
 
 #closeConfirm { 

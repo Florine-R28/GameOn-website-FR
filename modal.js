@@ -7,11 +7,11 @@ function editNav() {
   }
 }
 
-function isValidDate(d)  {
-  let todayDate = new Date(); //today date
-  let date = new Date().setFullYear(todayDate.getFullYear()-18); //just for adults
-  let oldDate = new Date().setFullYear(todayDate.getFullYear()-100); //100 in the past
-  return d instanceof Date && !isNaN(d) && d<=date && d>oldDate ; 
+function isValidDate(day)  {
+  const todayDate = new Date(); //today date
+  const date = new Date().setFullYear(todayDate.getFullYear()-18); //just for adults
+  const oldDate = new Date().setFullYear(todayDate.getFullYear()-100); //100 in the past
+  return d instanceof Date && !isNaN(day) && day<=date && day>oldDate ; 
 }
  
 // DOM Elements
@@ -40,7 +40,7 @@ modalclose.addEventListener("click", closeModal);
 // Form fields validation
 const firstName = document.getElementById("first");
 const lastName = document.getElementById("last");
-const nameRegex =/^[a-zA-Z '.-]*$/; 
+const nameRegex =/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u; 
 const emailValid = document.getElementById("email");
 const emailRegex =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -73,77 +73,91 @@ function validateForm() {
   let isValidForm = true;
 
   //Names check (firstName x lastName)
-  if (!firstName.value || firstName.value.length < 2 || (!nameRegex.test(firstName.value))) {
+  inputFirstName.addEventListener('change', function(){
+    if (!firstName.value || firstName.value.length < 2 || (!nameRegex.test(firstName.value))) {
     errorLabelFirst.style.display = "block";
     inputFirstName.style.borderColor = "red"; 
     isValidForm = false;
-  } else {
+    } else {
     errorLabelFirst.style.display = "none";
     inputFirstName.style.borderColor = "#ccc"; 
-  }
+    }
+  })
 
-  if (!lastName.value || lastName.value.length < 2 || (!nameRegex.test(lastName.value))) {
+  lastName.addEventListener('change', function(){
+    if (!lastName.value || lastName.value.length < 2 || (!nameRegex.test(lastName.value))) {
     errorLabelLast.style.display = "block";
     inputLastName.style.borderColor = "red"; 
     isValidForm = false;
-  } else {
+    } else {
     errorLabelLast.style.display = "none";
     inputLastName.style.borderColor = "#ccc"; 
-  }
+    }
+  })
 
   // Email check
-  if (!emailRegex.test(emailValid.value)) {
+  emailValid.addEventListener('change', function(){
+    if (!emailRegex.test(emailValid.value)) {
     errorLabelMail.style.display = "block";
     inputEmailValid.style.borderColor = "red"; 
     isValidForm = false;
-  } else {
+    } else {
     errorLabelMail.style.display = "none";
     inputEmailValid.style.borderColor = "#ccc"; 
-  }
+    }
+  })
 
   // Birthdate check
-  if (!birthValid.value || !isValidDate(new Date(birthValid.value))) {
+  birthValid.addEventListener('change', function(){
+    if (!birthValid.value || !isValidDate(new Date(birthValid.value))) {
     errorLabelBirth.style.display = "block";
     inputBirthValid.style.borderColor = "red"; 
     isValidForm = false;
-  } else {
+    } else {
     errorLabelBirth.style.display = "none";
     inputBirthValid.style.borderColor = "#ccc"; 
-  }
+    }
+  })
 
   // Number of tournaments check
-  if (!quantityCity.value || quantityCity.value < 0 || quantityCity.value > 99) {
+  quantityCity.addEventListener('change', function(){
+    if (!quantityCity.value || quantityCity.value < 0 || quantityCity.value > 99) {
     errorLabelQuantity.style.display = "block";
     inputQuantityCity.style.borderColor = "red"; 
     isValidForm = false;
-  } else {
+    } else {
     errorLabelQuantity.style.display = "none";
     inputQuantityCity.style.borderColor = "#ccc"; 
-  }
+    }
+  })
 
   // Locations check
-  const radioButtons = document.getElementsByName("location");
-  let areValidRadioButtons = false;
-  for (let i = 0; i < radioButtons.length; i++) {
-    if (radioButtons[i].checked) {
+  radioButtons.addEventListener('change', function(){
+    const radioButtons = document.getElementsByName("location");
+    let areValidRadioButtons = false;
+    for (let i = 0; i < radioButtons.length; i++) {
+      if (radioButtons[i].checked) {
       areValidRadioButtons = true;
+      }
     }
-  }
 
-  if (!areValidRadioButtons /*=== false*/) {
+    if (!areValidRadioButtons /*=== false*/) {
     errorLabelradioButtons.style.display = "block";
     isValidForm = false;
-  } else {
+    } else {
     errorLabelradioButtons.style.display = "none";
-  }
+    }
+  })
 
   // CheckboxConditions check
-  if (!checkboxConditions.checked) {
+  checkboxConditions.addEventListener('change', function(){
+    if (!checkboxConditions.checked) {
     errorLabelCheckbox.style.display = "block";
     isValidForm = false;
-  } else {
+    } else {
     errorLabelCheckbox.style.display = "none";
-  }
+    }
+  })
   
   return isValidForm;
 }
@@ -159,7 +173,7 @@ function sendForm() {
 }
 
 document.getElementById("inscription").addEventListener("submit", function () {
-  if (validateForm() == true) {
+  if (validateForm()) {
     sendForm(); 
     document.getElementById("inscription").reset();
     closeModal();

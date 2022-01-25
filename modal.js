@@ -11,7 +11,7 @@ function isValidDate(day)  {
   const todayDate = new Date(); //today date
   const date = new Date().setFullYear(todayDate.getFullYear()-18); //just for adults
   const oldDate = new Date().setFullYear(todayDate.getFullYear()-100); //100 in the past
-  return d instanceof Date && !isNaN(day) && day<=date && day>oldDate ; 
+  return day instanceof Date && !isNaN(day) && day<=date && day>oldDate ; 
 }
  
 // DOM Elements
@@ -47,6 +47,7 @@ const emailRegex =
 const birthValid = document.getElementById("birthdate");
 const quantityCity = document.getElementById("quantity");
 const checkboxConditions = document.getElementById("checkboxConditions");
+const radioButtons = document.getElementsByName("location");
 const form = document.getElementById("form");
 const submit = document.getElementById("submit");
 
@@ -67,98 +68,160 @@ const inputEmailValid = document.getElementById("email");
 const inputBirthValid = document.getElementById("birthdate");
 const inputQuantityCity = document.getElementById("quantity");
 
+//Automatically update the form
+let isValidForm = true;
+
+//Names check (firstName x lastName)
+firstName.addEventListener('change', function(){
+  if (!firstName.value || firstName.value.length < 2 || (!nameRegex.test(firstName.value))) {
+  errorLabelFirst.style.display = "block";
+  inputFirstName.style.borderColor = "red"; 
+  isValidForm = false;
+  } else {
+  errorLabelFirst.style.display = "none";
+  inputFirstName.style.borderColor = "#ccc"; 
+  }
+})
+
+lastName.addEventListener('change', function(){
+  if (!lastName.value || lastName.value.length < 2 || (!nameRegex.test(lastName.value))) {
+  errorLabelLast.style.display = "block";
+  inputLastName.style.borderColor = "red"; 
+  isValidForm = false;
+  } else {
+  errorLabelLast.style.display = "none";
+  inputLastName.style.borderColor = "#ccc"; 
+  }
+})
+
+// Email check
+emailValid.addEventListener('change', function(){
+  if (!emailRegex.test(emailValid.value)) {
+  errorLabelMail.style.display = "block";    
+  inputEmailValid.style.borderColor = "red"; 
+  isValidForm = false;
+  } else {
+  errorLabelMail.style.display = "none";
+  inputEmailValid.style.borderColor = "#ccc"; 
+  }
+})
+
+// Birthdate check
+birthValid.addEventListener('change', function(){
+  if (!birthValid.value || !isValidDate(new Date(birthValid.value))) {
+  errorLabelBirth.style.display = "block";
+  inputBirthValid.style.borderColor = "red"; 
+  isValidForm = false;
+  } else {
+  errorLabelBirth.style.display = "none";
+  inputBirthValid.style.borderColor = "#ccc"; 
+  }
+})
+
+// Number of tournaments check  
+quantityCity.addEventListener('change', function(){
+  if (!quantityCity.value || quantityCity.value < 0 || quantityCity.value > 99) {
+    errorLabelQuantity.style.display = "block";
+    inputQuantityCity.style.borderColor = "red"; 
+    isValidForm = false;
+  } else {
+    errorLabelQuantity.style.display = "none";
+    inputQuantityCity.style.borderColor = "#ccc"; 
+    }
+})
+
+
+
+// CheckboxConditions check
+checkboxConditions.addEventListener('change', function(){
+ if (!checkboxConditions.checked) {
+ errorLabelCheckbox.style.display = "block";
+ isValidForm = false;
+ } else {
+ errorLabelCheckbox.style.display = "none";
+ }
+})
+
+
 // Check all form fields
 function validateForm() {
   event.preventDefault();
   let isValidForm = true;
 
-  //Names check (firstName x lastName)
-  inputFirstName.addEventListener('change', function(){
-    if (!firstName.value || firstName.value.length < 2 || (!nameRegex.test(firstName.value))) {
+ //Names check (firstName x lastName)
+  if (!firstName.value || firstName.value.length < 2 || (!nameRegex.test(firstName.value))) {
     errorLabelFirst.style.display = "block";
     inputFirstName.style.borderColor = "red"; 
     isValidForm = false;
-    } else {
+  } else {
     errorLabelFirst.style.display = "none";
     inputFirstName.style.borderColor = "#ccc"; 
-    }
-  })
+  }
 
-  lastName.addEventListener('change', function(){
-    if (!lastName.value || lastName.value.length < 2 || (!nameRegex.test(lastName.value))) {
+  if (!lastName.value || lastName.value.length < 2 || (!nameRegex.test(lastName.value))) {
     errorLabelLast.style.display = "block";
     inputLastName.style.borderColor = "red"; 
     isValidForm = false;
-    } else {
+  } else {
     errorLabelLast.style.display = "none";
     inputLastName.style.borderColor = "#ccc"; 
-    }
-  })
+  }
+
 
   // Email check
-  emailValid.addEventListener('change', function(){
-    if (!emailRegex.test(emailValid.value)) {
-    errorLabelMail.style.display = "block";
+  if (!emailRegex.test(emailValid.value)) {
+    errorLabelMail.style.display = "block";    
     inputEmailValid.style.borderColor = "red"; 
     isValidForm = false;
-    } else {
+  } else {
     errorLabelMail.style.display = "none";
     inputEmailValid.style.borderColor = "#ccc"; 
-    }
-  })
+  }
 
   // Birthdate check
-  birthValid.addEventListener('change', function(){
-    if (!birthValid.value || !isValidDate(new Date(birthValid.value))) {
+  if (!birthValid.value || !isValidDate(new Date(birthValid.value))) {
     errorLabelBirth.style.display = "block";
     inputBirthValid.style.borderColor = "red"; 
     isValidForm = false;
-    } else {
+  } else {
     errorLabelBirth.style.display = "none";
     inputBirthValid.style.borderColor = "#ccc"; 
-    }
-  })
+  }
 
-  // Number of tournaments check
-  quantityCity.addEventListener('change', function(){
-    if (!quantityCity.value || quantityCity.value < 0 || quantityCity.value > 99) {
+  // Number of tournaments check  
+  if (!quantityCity.value || quantityCity.value < 0 || quantityCity.value > 99) {
     errorLabelQuantity.style.display = "block";
     inputQuantityCity.style.borderColor = "red"; 
     isValidForm = false;
-    } else {
+  } else {
     errorLabelQuantity.style.display = "none";
     inputQuantityCity.style.borderColor = "#ccc"; 
-    }
-  })
+  }
 
   // Locations check
-  radioButtons.addEventListener('change', function(){
-    const radioButtons = document.getElementsByName("location");
-    let areValidRadioButtons = false;
-    for (let i = 0; i < radioButtons.length; i++) {
-      if (radioButtons[i].checked) {
-      areValidRadioButtons = true;
-      }
-    }
 
-    if (!areValidRadioButtons /*=== false*/) {
+let areValidRadioButtons = false;
+for (let i = 0; i < radioButtons.length; i++) {
+  if (radioButtons[i].checked) {
+    areValidRadioButtons = true;
+  }
+}
+
+ if (!areValidRadioButtons /*=== false*/) {
     errorLabelradioButtons.style.display = "block";
     isValidForm = false;
-    } else {
+  } else {
     errorLabelradioButtons.style.display = "none";
-    }
-  })
+  }
 
   // CheckboxConditions check
-  checkboxConditions.addEventListener('change', function(){
-    if (!checkboxConditions.checked) {
+  if (!checkboxConditions.checked) {
     errorLabelCheckbox.style.display = "block";
     isValidForm = false;
-    } else {
+  } else {
     errorLabelCheckbox.style.display = "none";
-    }
-  })
-  
+  }
+
   return isValidForm;
 }
 
